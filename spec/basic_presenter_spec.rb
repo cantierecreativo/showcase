@@ -114,4 +114,16 @@ describe BasicPresenter::Helpers do
     end
   end
 
+  describe '.present_collection' do
+    it 'returns a presenter for each object in the collection' do
+      collection = [ Person.new('Mark'), Person.new('Luke') ]
+
+      PersonPresenter.stub(:new).with(collection[0], context).and_return 'foo'
+      PersonPresenter.stub(:new).with(collection[1], context).and_return 'bar'
+
+      presented_collection = context.present_collection(collection)
+      presented_collection.should == [ 'foo', 'bar' ]
+    end
+  end
+
 end
