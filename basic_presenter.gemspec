@@ -8,9 +8,9 @@ Gem::Specification.new do |gem|
   gem.version       = BasicPresenter::VERSION
   gem.authors       = ["Stefano Verna"]
   gem.email         = ["stefano.verna@welaika.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = %q{A barebone and framework agnostic presenter implementation}
+  gem.summary       = %q{A barebone and framework agnostic presenter implementation}
+  gem.homepage      = "https://github.com/stefanoverna/basic_presenter"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
