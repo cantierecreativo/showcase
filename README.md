@@ -1,6 +1,6 @@
 # BasicPresenter [![Build Status](https://travis-ci.org/stefanoverna/basic_presenter.png?branch=master)](https://travis-ci.org/stefanoverna/basic_presenter)
 
-The most basic presenter implementation in town.
+The most basic presenter implementation in town. Framework agnostic, works with Rails, Padrino or simply Sinatra.
 
 ## Installation
 
@@ -26,34 +26,37 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-You can now instantiate new presenters using the included helpers:
+You can now instantiate new presenters in your controller/views using the included helpers:
 
 ```ruby
-# automatically infers presenter name based on object's class name
-present object
+# this is the object that needs to be presented
+person = Person.new
 
-# explicit presenter class
-present object, PersonPresenter
+# automatically infers presenter class to use based on person's class name
+present(person) # => returns a PersonPresenter instance
+
+# you can also explicitly tell what presenter to use
+present(person, AdminPresenter) # => returns an AdminPresenter instance
 
 # explicit presenter and context
-present object, PersonPresenter, context
+present(person, PersonPresenter, context)
 
-# maps each object in the collection with a presenter
-present_collection objects
+# maps each person in the collection with a presenter
+present_collection([ people ]) # => returns an array of PeoplePresenters
 ```
 
 Define your presenters i.e. in a `app/presenters` folder:
 
 ```ruby
 class ProjectPresenter < BasicPresenter::Base
-  # automatically wraps the attirbute into a PersonPresenter
+  # automatically wraps the attribute into a PersonPresenter
   presents :person
 
-  # automatically wraps each task in a TaskPresenter presenter
+  # expects project.task to return an enumerable. automatically wraps each task in a TaskPresenter presenter
   presents_collection :tasks
 
-  # you can use context, or the shortcut h to access the view context
-  # object refers to the object being presented
+  # you can use `context`, or the shortcut `h`, to access the view context.
+  # `object` refers to the object being presented
   def title
     h.link_to object.title, object
   end
