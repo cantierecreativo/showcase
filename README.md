@@ -1,6 +1,6 @@
 # BasicPresenter [![Build Status](https://travis-ci.org/stefanoverna/basic_presenter.png?branch=master)](https://travis-ci.org/stefanoverna/basic_presenter)
 
-The most basic presenter implementation in town. Framework agnostic, works with Rails, Padrino or simply Sinatra.
+The most basic presenter implementation in town (< 100 lines of code). Framework agnostic, works with Rails, Padrino or simply Sinatra.
 
 ## Installation
 
