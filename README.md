@@ -1,6 +1,6 @@
 # Showcase [![Build Status](https://travis-ci.org/welaika/showcase.png?branch=master)](https://travis-ci.org/welaika/showcase)
 
-The most basic presenter implementation in town (< 100 lines of code). Framework agnostic, works with Rails, Padrino or simply Sinatra.
+A simple (< 100 lines of code) but powerful presenter implementation. Framework agnostic: works with Rails, Padrino or simply Sinatra.
 
 ## Installation
 
@@ -18,10 +18,18 @@ Or install it yourself as:
 
 ## Usage
 
-Include Showcase::Helpers on your ApplicationController:
+With Rails, include `Showcase::Helpers` in your `ApplicationController`:
 
 ```ruby
 class ApplicationController < ActionController::Base
+  include Showcase::Helpers
+end
+```
+
+With Padrino, include `Showcase::Helpers` in your app `helpers` block.
+
+```ruby
+helpers do
   include Showcase::Helpers
 end
 ```
