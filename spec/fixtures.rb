@@ -10,6 +10,10 @@ class Project < Struct.new(:name)
     [ Person.new("Ju Liu") ]
   end
 
+  def first_collaborator
+    collaborators.first
+  end
+
   def dummy
     "foobar"
   end
@@ -18,6 +22,10 @@ end
 class PersonPresenter < Showcase::Presenter
   def sex
     'male'
+  end
+
+  def bold_name
+    h.bold(object.name)
   end
 end
 
@@ -29,11 +37,19 @@ class ProjectPresenter < Showcase::Presenter
     "Presented #{object.name}"
   end
 
-  def context_foo
-    h.foo
+  def bold_name
+    h.bold(object.name)
+  end
+
+  def first_collaborator
+    present(object.first_collaborator)
   end
 end
 
 class Context
   include Showcase::Helpers
+
+  def bold(text)
+    "**#{text}**"
+  end
 end

@@ -2,14 +2,13 @@ require 'showcase'
 require_relative './fixtures'
 
 describe Showcase::Presenter do
-
-  let(:context) { stub(:context, foo: 'bar') }
+  let(:context) { Context.new }
   let(:object) { Project.new('Showcase') }
   let(:subject) { ProjectPresenter.new(object, context) }
 
   it 'takes the object and a context as parameters' do
     subject.object.should == object
-    subject.context.should == context
+    subject.view_context.should == context
   end
 
   it 'preserves original .class' do
@@ -25,18 +24,30 @@ describe Showcase::Presenter do
   end
 
   it 'allows .h as shortcut to access the context' do
-    subject.context_foo.should == 'bar'
+    subject.bold_name.should == '**Showcase**'
+  end
+
+  describe '.present' do
+    it 'passes the context' do
+      subject.first_collaborator.bold_name.should == '**Ju Liu**'
+    end
   end
 
   describe '#presents' do
     it 'wraps the specified attributes inside a presenter' do
       subject.owner.sex.should == 'male'
     end
+    it 'passes the context' do
+      subject.owner.bold_name.should == '**Stefano Verna**'
+    end
   end
 
   describe '#presents_collection' do
     it 'wraps the specifieed collection attributes inside a presenter' do
       subject.collaborators.first.sex.should == 'male'
+    end
+    it 'passes the context' do
+      subject.collaborators.first.bold_name.should == '**Ju Liu**'
     end
   end
 end
@@ -63,7 +74,7 @@ describe Showcase::Helpers do
       end
       it 'the context to use can be specified as third parameter' do
         different_context = stub
-        context.present(object, ProjectPresenter, different_context).context.should == different_context
+        context.present(object, ProjectPresenter, different_context).view_context.should == different_context
       end
     end
   end
@@ -79,5 +90,5 @@ describe Showcase::Helpers do
       presented_collection.should == [ 'foo', 'bar' ]
     end
   end
-
 end
+

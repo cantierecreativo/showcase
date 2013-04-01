@@ -18,11 +18,11 @@ Or install it yourself as:
 
 ## Usage
 
-Include Showcase::Helpers as additional helper module.
+Include Showcase::Helpers on your ApplicationController:
 
 ```ruby
 class ApplicationController < ActionController::Base
-  helper Showcase::Helpers
+  include Showcase::Helpers
 end
 ```
 
@@ -55,7 +55,7 @@ class ProjectPresenter < Showcase::Presenter
   # expects project.task to return an enumerable. automatically wraps each task in a TaskPresenter presenter
   presents_collection :tasks
 
-  # you can use `context`, or the shortcut `h`, to access the view context.
+  # you can use `view_context`, or the shortcut `h`, to access the context.
   # `object` refers to the object being presented
   def title
     h.link_to object.title, object

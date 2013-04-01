@@ -1,15 +1,14 @@
 require 'delegate'
-require 'active_support/inflector'
 require 'showcase/helpers'
 
 module Showcase
   class Presenter < SimpleDelegator
     include Helpers
 
-    attr_reader :context
+    attr_reader :view_context
 
-    alias :object :__getobj__
-    alias :h :context
+    alias_method :object, :__getobj__
+    alias_method :h, :view_context
 
     def class
       object.class
@@ -17,13 +16,13 @@ module Showcase
 
     def initialize(obj, context)
       super(obj)
-      @context = context
+      @view_context = context
     end
 
     def self.presents(*attrs)
       attrs.each do |attr|
         define_method attr do
-          present(object.send(attr), nil, context)
+          present(object.send(attr), nil, view_context)
         end
       end
     end
@@ -31,9 +30,10 @@ module Showcase
     def self.presents_collection(*attrs)
       attrs.each do |attr|
         define_method attr do
-          present_collection(object.send(attr), nil, context)
+          present_collection(object.send(attr), nil, view_context)
         end
       end
     end
   end
 end
+
