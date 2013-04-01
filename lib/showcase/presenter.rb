@@ -1,9 +1,9 @@
 require 'delegate'
 require 'active_support/inflector'
-require 'basic_presenter/helpers'
+require 'showcase/helpers'
 
-module BasicPresenter
-  class Base < SimpleDelegator
+module Showcase
+  class Presenter < SimpleDelegator
     include Helpers
 
     attr_reader :context

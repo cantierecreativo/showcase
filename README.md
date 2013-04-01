@@ -1,4 +1,4 @@
-# BasicPresenter [![Build Status](https://travis-ci.org/stefanoverna/basic_presenter.png?branch=master)](https://travis-ci.org/stefanoverna/basic_presenter)
+# Showcase [![Build Status](https://travis-ci.org/welaika/showcase.png?branch=master)](https://travis-ci.org/welaika/showcase)
 
 The most basic presenter implementation in town (< 100 lines of code). Framework agnostic, works with Rails, Padrino or simply Sinatra.
 
@@ -6,7 +6,7 @@ The most basic presenter implementation in town (< 100 lines of code). Framework
 
 Add this line to your application's Gemfile:
 
-    gem 'basic_presenter'
+    gem 'showcase'
 
 And then execute:
 
@@ -14,15 +14,15 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install basic_presenter
+    $ gem install showcase
 
 ## Usage
 
-Include BasicPresenter::Helpers as additional helper module.
+Include Showcase::Helpers as additional helper module.
 
 ```ruby
 class ApplicationController < ActionController::Base
-  helper BasicPresenter::Helpers
+  helper Showcase::Helpers
 end
 ```
 
@@ -48,7 +48,7 @@ present_collection([ people ]) # => returns an array of PeoplePresenters
 Define your presenters i.e. in a `app/presenters` folder:
 
 ```ruby
-class ProjectPresenter < BasicPresenter::Base
+class ProjectPresenter < Showcase::Presenter
   # automatically wraps the attribute into a PersonPresenter
   presents :person
 

@@ -1,0 +1,8 @@
+Description:
+    Generates a presenter for a model with the given name.
+
+Example:
+    rails generate shocase:presenter user
+
+    This will create:
+        app/presenters/user_presenter.rb

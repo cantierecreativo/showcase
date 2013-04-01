@@ -15,13 +15,13 @@ class Project < Struct.new(:name)
   end
 end
 
-class PersonPresenter < BasicPresenter::Base
+class PersonPresenter < Showcase::Presenter
   def sex
     'male'
   end
 end
 
-class ProjectPresenter < BasicPresenter::Base
+class ProjectPresenter < Showcase::Presenter
   presents :owner
   presents_collection :collaborators
 
@@ -35,5 +35,5 @@ class ProjectPresenter < BasicPresenter::Base
 end
 
 class Context
-  include BasicPresenter::Helpers
+  include Showcase::Helpers
 end

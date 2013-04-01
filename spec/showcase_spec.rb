@@ -1,10 +1,10 @@
-require 'basic_presenter'
+require 'showcase'
 require_relative './fixtures'
 
-describe BasicPresenter::Base do
+describe Showcase::Presenter do
 
   let(:context) { stub(:context, foo: 'bar') }
-  let(:object) { Project.new('BasicPresenter') }
+  let(:object) { Project.new('Showcase') }
   let(:subject) { ProjectPresenter.new(object, context) }
 
   it 'takes the object and a context as parameters' do
@@ -21,7 +21,7 @@ describe BasicPresenter::Base do
   end
 
   it 'allows overriding of methods' do
-    subject.name.should == 'Presented BasicPresenter'
+    subject.name.should == 'Presented Showcase'
   end
 
   it 'allows .h as shortcut to access the context' do
@@ -41,12 +41,12 @@ describe BasicPresenter::Base do
   end
 end
 
-describe BasicPresenter::Helpers do
+describe Showcase::Helpers do
   let(:object) { Person.new('Steve Ballmer') }
   let(:context) { Context.new }
 
   describe '.present' do
-    context 'when the passed object is already a BasicPresenter::Base' do
+    context 'when the passed object is already a Showcase::Base' do
       it 'returns the object itself' do
         presenter = PersonPresenter.new(object, stub)
         context.present(presenter).should == presenter

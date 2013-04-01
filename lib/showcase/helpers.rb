@@ -1,7 +1,7 @@
-module BasicPresenter
+module Showcase
   module Helpers
     def present(obj, klass = nil, context = self)
-      if obj.is_a? ::BasicPresenter::Base
+      if obj.is_a? ::Showcase::Presenter
         obj
       else
         klass ||= "#{obj.class.name}Presenter".constantize
