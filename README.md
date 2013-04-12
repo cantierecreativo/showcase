@@ -18,12 +18,12 @@ Or install it yourself as:
 
 ## Usage
 
-With Rails, include `Showcase::Helpers` in your `ApplicationController`:
+With Rails, include `Showcase::Helpers` into your controller and/or views:
 
 ```ruby
-class ApplicationController < ActionController::Base
-  include Showcase::Helpers
-end
+# config/initializers/showcase.rb
+ActionController::Base.send :include, Showcase::Helpers
+ActionView::Base.send :include, Showcase::Helpers
 ```
 
 With Padrino, include `Showcase::Helpers` in your app `helpers` block.
@@ -78,3 +78,4 @@ end
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+

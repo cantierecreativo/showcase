@@ -5,16 +5,6 @@ module Showcase
   module Helpers
     extend ActiveSupport::Concern
 
-    included do
-      if respond_to?(:helper_method)
-        helper_method :present
-        helper_method :present_collection
-      end
-      if respond_to?(:hide_action)
-        hide_action :presenter_context
-      end
-    end
-
     def presenter_context
       if respond_to? :view_context
         view_context
