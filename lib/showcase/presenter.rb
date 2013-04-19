@@ -2,28 +2,30 @@ require 'delegate'
 require 'showcase/helpers'
 
 module Showcase
-  class Presenter < BasicObject
-    attr_reader :view_context
-    attr_reader :object
-    alias_method :h, :view_context
-
+  class Presenter < SimpleDelegator
     include Helpers
 
-    def initialize(object, context)
-      @object = object
+    attr_reader :view_context
+
+    alias_method :object, :__getobj__
+    alias_method :h, :view_context
+
+    def initialize(obj, context)
+      super(obj)
       @view_context = context
     end
 
-    def respond_to?(name)
-      if [:view_context, :h, :object].include? name
-        true
-      else
-        object.respond_to?(name)
-      end
+    def class
+      object.class
     end
 
-    def method_missing(name, *args, &block)
-      object.__send__(name, *args, &block)
+    def kind_of?(klass)
+      object.kind_of?(klass)
+    end
+    alias_method :is_a?, :kind_of?
+
+    def instance_of?(klass)
+      object.instance_of?(klass)
     end
 
     def self.presents(*attrs)
