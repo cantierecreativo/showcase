@@ -43,7 +43,7 @@ describe Showcase::Presenter do
   end
 
   describe '#presents_collection' do
-    it 'wraps the specifieed collection attributes inside a presenter' do
+    it 'wraps the specified collection attributes inside a presenter' do
       subject.collaborators.first.sex.should == 'male'
     end
     it 'passes the context' do
@@ -57,25 +57,17 @@ describe Showcase::Helpers do
   let(:context) { Context.new }
 
   describe '.present' do
-    context 'when the passed object is already a Showcase::Base' do
-      it 'returns the object itself' do
-        presenter = PersonPresenter.new(object, stub)
-        context.present(presenter).should == presenter
-      end
+    it 'instanciate a new presenter, inferring the class' do
+      PersonPresenter.stub(:new).with(object, context).and_return 'Presenter'
+      context.present(object, PersonPresenter).should == 'Presenter'
     end
-    context 'when the object still needs to be presented' do
-      it 'instanciate a new presenter, inferring the class' do
-        PersonPresenter.stub(:new).with(object, context).and_return 'Presenter'
-        context.present(object, PersonPresenter).should == 'Presenter'
-      end
-      it 'the presenter class to use can be specified as the second parameter' do
-        ProjectPresenter.stub(:new).with(object, context).and_return 'Presenter'
-        context.present(object, ProjectPresenter).should == 'Presenter'
-      end
-      it 'the context to use can be specified as third parameter' do
-        different_context = stub
-        context.present(object, ProjectPresenter, different_context).view_context.should == different_context
-      end
+    it 'the presenter class to use can be specified as the second parameter' do
+      ProjectPresenter.stub(:new).with(object, context).and_return 'Presenter'
+      context.present(object, ProjectPresenter).should == 'Presenter'
+    end
+    it 'the context to use can be specified as third parameter' do
+      different_context = stub
+      context.present(object, ProjectPresenter, different_context).view_context.should == different_context
     end
   end
 

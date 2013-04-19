@@ -14,12 +14,8 @@ module Showcase
     end
 
     def present(obj, klass = nil, context = presenter_context)
-      if obj.is_a? ::Showcase::Presenter
-        obj
-      else
-        klass ||= "#{obj.class.name}Presenter".constantize
-        klass.new(obj, context)
-      end
+      klass ||= "#{obj.class.name}Presenter".constantize
+      klass.new(obj, context)
     end
 
     def present_collection(obj, klass = nil, context = presenter_context)
