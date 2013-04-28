@@ -18,6 +18,14 @@ describe Showcase::Presenter do
     subject.class.should == Project
   end
 
+  it 'should be kind of original class' do
+    subject.should be_kind_of Project
+  end
+
+  it 'should be instance of original class' do
+    subject.should be_instance_of Project
+  end
+
   it 'delegates methods to object' do
     subject.dummy.should == 'foobar'
   end
