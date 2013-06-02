@@ -1,6 +1,17 @@
 # Showcase [![Build Status](https://travis-ci.org/welaika/showcase.png?branch=master)](https://travis-ci.org/welaika/showcase) [![Coverage Status](https://coveralls.io/repos/welaika/showcase/badge.png?branch=master)](https://coveralls.io/r/welaika/showcase)
 
-A simple (< 100 lines of code) but powerful presenter implementation. Framework agnostic: works with Rails, Padrino or simply Sinatra.
+A simple (< 100 lines of code) but powerful exhibit/presenter implementation. It's framework agnostic: works with Rails, Padrino or simply Sinatra.
+
+# Properties of the Exhibit pattern
+
+Citing [Avdi's introductory post](http://devblog.avdi.org/2012/06/04/displaycase-gem-now-available/):
+
+* **It wraps a single model instance.** Not an assortment of objects.
+* **It is a true Decorator.** All unrecognized messages are passed through to the underlying object. This facilitates a gradual migration to the use of Exhibits to encapsulate presentation knowledge, since they can be layered onto models without any change to the existing views. It also enables multiple Exhibits to be layered onto an object, each handling different aspects of presentation.
+* **It brings together a model and a context.** Exhibits need a reference to a “context” object—either a controller or a view context—in order to be able to render templates as well as construct URLs for the object or related resources.
+* **It encapsulates decisions about how to render an object.** The tell-tale of an Exhibit is telling an object “render yourself”, rather than explicitly rendering a template and passing the object in as an argument.
+* **It may modify the behavior of an object.** For instance, an Exhibit might impose a scope on a Blog#entries association which only returns entries that are visible to the current user (as determined from the Exhibit’s controller context). Or it might reformat the return value of a #social_security_number method to include dashes and have all but the last four digits obscured: ***-**-5678.
+* **There is a many-to-many relationship between model classes and exhibit classes.** One generic exhibit class may apply to several different types of model. Other exhibits may be specific, not just to a model, but to a model in a particular state, or within a particular viewing context.
 
 ## Installation
 
@@ -50,7 +61,7 @@ present(person, AdminPresenter) # => returns an AdminPresenter instance
 present(person, PersonPresenter, context)
 
 # maps each person in the collection with a presenter
-present_collection([ people ]) # => returns an array of PeoplePresenters
+present_collection([person]) # => returns an array of PersonPresenters
 ```
 
 Define your presenters i.e. in a `app/presenters` folder:
