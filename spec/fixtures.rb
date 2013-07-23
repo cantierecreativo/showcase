@@ -38,9 +38,14 @@ end
 class ProjectPresenter < Showcase::Presenter
   presents :owner, with: AdminPresenter
   presents_collection :collaborators
+  presents :owner_child
 
   def name
     "Presented #{object.name}"
+  end
+
+  def owner
+    super
   end
 
   def bold_name
@@ -57,6 +62,12 @@ class Context
 
   def bold(text)
     "**#{text}**"
+  end
+end
+
+class Shop
+  def owner
+    Person.new("Stefano Verna")
   end
 end
 

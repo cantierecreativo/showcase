@@ -31,27 +31,29 @@ module Showcase
     end
 
     def self.presents(*args)
-      options = args.extract_options!
-      options.assert_valid_keys(:with)
-      presenter_klass = options.fetch(:with, nil)
-
-      args.each do |attr|
-        define_method attr do
-          present(object.send(attr), presenter_klass, view_context)
-        end
-      end
+      wrap_methods(args, :present)
     end
 
     def self.presents_collection(*args)
+      wrap_methods(args, :present_collection)
+    end
+
+    private
+
+    def self.wrap_methods(args, method)
       options = args.extract_options!
       options.assert_valid_keys(:with)
       presenter_klass = options.fetch(:with, nil)
 
-      args.each do |attr|
-        define_method attr do
-          present_collection(object.send(attr), presenter_klass, view_context)
+      methods_module = Module.new do
+        args.each do |attr|
+          define_method attr do
+            send(method, object.send(attr), presenter_klass, view_context)
+          end
         end
       end
+
+      include(methods_module)
     end
   end
 end
