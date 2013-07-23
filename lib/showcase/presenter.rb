@@ -1,5 +1,7 @@
 require 'delegate'
 require 'showcase/helpers'
+require 'active_support/core_ext/array/extract_options'
+require 'active_support/core_ext/hash/keys'
 
 module Showcase
   class Presenter < SimpleDelegator
@@ -28,18 +30,26 @@ module Showcase
       object.instance_of?(klass)
     end
 
-    def self.presents(*attrs)
-      attrs.each do |attr|
+    def self.presents(*args)
+      options = args.extract_options!
+      options.assert_valid_keys(:with)
+      presenter_klass = options.fetch(:with, nil)
+
+      args.each do |attr|
         define_method attr do
-          present(object.send(attr), nil, view_context)
+          present(object.send(attr), presenter_klass, view_context)
         end
       end
     end
 
-    def self.presents_collection(*attrs)
-      attrs.each do |attr|
+    def self.presents_collection(*args)
+      options = args.extract_options!
+      options.assert_valid_keys(:with)
+      presenter_klass = options.fetch(:with, nil)
+
+      args.each do |attr|
         define_method attr do
-          present_collection(object.send(attr), nil, view_context)
+          present_collection(object.send(attr), presenter_klass, view_context)
         end
       end
     end

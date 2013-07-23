@@ -71,6 +71,9 @@ class ProjectPresenter < Showcase::Presenter
   # automatically wraps the attribute into a PersonPresenter
   presents :person
 
+  # automatically wraps the attribute into an AdminPresenter
+  presents :person, with: AdminPresenter
+
   # expects project.task to return an enumerable. automatically wraps each task in a TaskPresenter presenter
   presents_collection :tasks
 

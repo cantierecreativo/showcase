@@ -29,8 +29,14 @@ class PersonPresenter < Showcase::Presenter
   end
 end
 
+class AdminPresenter < PersonPresenter
+  def bold_name
+    h.bold("Admin #{object.name}")
+  end
+end
+
 class ProjectPresenter < Showcase::Presenter
-  presents :owner
+  presents :owner, with: AdminPresenter
   presents_collection :collaborators
 
   def name
@@ -53,3 +59,4 @@ class Context
     "**#{text}**"
   end
 end
+

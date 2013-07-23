@@ -49,7 +49,7 @@ describe Showcase::Presenter do
       subject.owner.sex.should == 'male'
     end
     it 'passes the context' do
-      subject.owner.bold_name.should == '**Stefano Verna**'
+      subject.owner.bold_name.should == '**Admin Stefano Verna**'
     end
   end
 
@@ -77,7 +77,7 @@ describe Showcase::Helpers do
       context.present(object, ProjectPresenter).should == 'Presenter'
     end
     it 'the context to use can be specified as third parameter' do
-      different_context = stub
+      different_context = double
       context.present(object, ProjectPresenter, different_context).view_context.should == different_context
     end
   end
