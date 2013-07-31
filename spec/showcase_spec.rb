@@ -34,6 +34,10 @@ describe Showcase::Presenter do
     subject.name.should == 'Presented Showcase'
   end
 
+  it 'implements :try method the right way' do
+    subject.try(:name).should == 'Presented Showcase'
+  end
+
   it 'allows .h as shortcut to access the context' do
     subject.bold_name.should == '**Showcase**'
   end
