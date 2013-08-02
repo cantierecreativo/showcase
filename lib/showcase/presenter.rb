@@ -43,13 +43,17 @@ module Showcase
 
     def self.wrap_methods(args, method)
       options = args.extract_options!
-      options.assert_valid_keys(:with)
+      options.assert_valid_keys(:with, :nil_presenter)
       presenter_klass = options.fetch(:with, nil)
 
       methods_module = Module.new do
         args.each do |attr|
           define_method attr do
-            send(method, object.send(attr), presenter_klass, view_context)
+            send(method,
+                 object.send(attr),
+                 presenter_klass,
+                 view_context,
+                 options.slice(:nil_presenter))
           end
         end
       end

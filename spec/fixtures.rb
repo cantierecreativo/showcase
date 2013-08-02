@@ -14,6 +14,12 @@ class Project < Struct.new(:name)
     collaborators.first
   end
 
+  def owner_child
+  end
+
+  def foobar
+  end
+
   def dummy
     "foobar"
   end
@@ -39,6 +45,7 @@ class ProjectPresenter < Showcase::Presenter
   presents :owner, with: AdminPresenter
   presents_collection :collaborators
   presents :owner_child
+  presents :foobar, nil_presenter: true
 
   def name
     "Presented #{object.name}"
@@ -54,6 +61,12 @@ class ProjectPresenter < Showcase::Presenter
 
   def first_collaborator
     present(object.first_collaborator)
+  end
+end
+
+class NilClassPresenter < Showcase::Presenter
+  def hi
+    "hi!"
   end
 end
 

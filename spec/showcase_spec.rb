@@ -55,6 +55,12 @@ describe Showcase::Presenter do
     it 'passes the context' do
       subject.owner.bold_name.should == '**Admin Stefano Verna**'
     end
+    it 'returns null if nil_presenter is false or undefined' do
+      subject.owner_child.should be_nil
+    end
+    it 'returns a null presenter if nil_presenter is true' do
+      subject.foobar.hi.should eq "hi!"
+    end
   end
 
   describe '#presents_collection' do
