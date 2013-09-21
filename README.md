@@ -82,16 +82,15 @@ end
 
 ### Generators
 
-Showcase comes with a generator to make the Presenter creation process a little
-faster:
+Showcase comes with a generator to create new presenters a little faster:
 
 ```
 rails generate showcase:presenter User
 ```
 
-Will generate `app/presenters/user_presenter.rb`. If your app has a file called
+Will generate `app/presenters/user_presenter.rb`. If your Rails app has the file
 `app/presenters/base_presenter.rb`, the newly created presenter will inherit
-form `BasePresenter` instead of `Shocase::Presenter`.
+from `BasePresenter` instead of `Shocase::Presenter`.
 
 ### Traits
 
