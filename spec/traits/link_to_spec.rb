@@ -20,6 +20,7 @@ module Showcase::Traits
           c.url = url
           c.label = 'Label'
           c.active = active
+          c.html_options role: 'label'
         end
 
         link_to :foo do
@@ -41,6 +42,10 @@ module Showcase::Traits
 
         it 'with the specified label' do
           expect(subject.link).to have_tag(:a, text: 'Label')
+        end
+
+        it 'with the specified html attributes' do
+          expect(subject.link).to have_tag(:a, with: { role: 'label' })
         end
 
         context 'with a different label as parameter' do

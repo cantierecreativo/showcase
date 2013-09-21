@@ -7,9 +7,9 @@ Since version 0.2.0 Showcase is bundled with [a set of "traits"](https://github.
 you can pick and choose to augment your presenters with additional sugar
 (available in Rails only).
 
-## Why should I use the Exhibit pattern in my Rails app?
+## Why should I use presenters in my Rails app?
 
-See [Avdi's introductory post](http://devblog.avdi.org/2012/06/04/displaycase-gem-now-available/).
+See [Avdi's Exhibits introductory post](http://devblog.avdi.org/2012/06/04/displaycase-gem-now-available/).
 
 ## Installation
 
@@ -149,15 +149,15 @@ class ProjectPresenter < Showcase::Presenter
   include Showcase::Traits::LinkTo
 
   link_to do |c|
-    c.url     h.project_path(self)
-    c.label   name
-    c.active  h.controller_name == 'projects'
+    c.url           h.project_path(self)
+    c.label         name
+    c.active        h.controller_name == 'projects'
+    c.html_options  role: 'label'
   end
 
   link_to :tasks do
     c.url     h.project_tasks_path(self)
     c.label   "Tasks"
-    c.active  h.controller_name == 'tasks'
   end
 end
 ```
