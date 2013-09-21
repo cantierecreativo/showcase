@@ -1,10 +1,11 @@
 # Showcase [![Build Status](https://travis-ci.org/stefanoverna/showcase.png?branch=master)](https://travis-ci.org/stefanoverna/showcase) [![Coverage Status](https://coveralls.io/repos/stefanoverna/showcase/badge.png?branch=master)](https://coveralls.io/r/stefanoverna/showcase)
 
 A simple (< 100 lines of code) but powerful exhibit/presenter implementation.
-It's framework agnostic: works with Rails, Padrino or simply Sinatra.
+It's framework agnostic: works with Rails, Padrino or just Sinatra.
 
-Since version 0.2.0 Showcase is bundled with a set of "traits" you can pick and
-choose to augment your presenters with additional sugar (Rails only).
+Since version 0.2.0 Showcase is bundled with [a set of "traits"](https://github.com/stefanoverna/showcase#traits)
+you can pick and choose to augment your presenters with additional sugar
+(available in Rails only).
 
 ## Why should I use the Exhibit pattern in my Rails app?
 
@@ -93,6 +94,9 @@ Will generate `app/presenters/user_presenter.rb`. If your app has a file called
 form `BasePresenter` instead of `Shocase::Presenter`.
 
 ### Traits
+
+Please [read the tests](https://github.com/stefanoverna/showcase/tree/master/lib/showcase/traits) 
+for a detailed explanation of each method available.
 
 #### `Showcase::Traits::Record`
 
