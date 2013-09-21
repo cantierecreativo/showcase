@@ -94,9 +94,10 @@ form `BasePresenter` instead of `Shocase::Presenter`.
 
 ### Traits
 
-#### `Showcase::Traits::Record` trait
+#### `Showcase::Traits::Record`
 
-To be used to present ActiveModel-based records. Inside your presenter, include the traits like this:
+To be used to present ActiveModel-based records. Inside your presenter, include
+the trait like this:
 
 ```ruby
 class ProjectPresenter < Showcase::Presenter
@@ -118,7 +119,8 @@ present(@project).dom_class # => "project"
 
 ##### `#box`
 
-Super useful in acceptance testing to check the presence of a record inside a view:
+Super useful in acceptance testing to check the presence of a record inside a
+view:
 
 ```erb
 <% present(@project).box do %>
@@ -134,9 +136,9 @@ Produces the following:
 </div>
 ```
 
-#### `Showcase::Traits::LinkTo` trait
+#### `Showcase::Traits::LinkTo`
 
-Adds a nice DSL to declare links within your presenter. Use the traits like this:
+Adds a nice DSL to declare links within your presenter.
 
 ```ruby
 class ProjectPresenter < Showcase::Presenter
@@ -175,7 +177,7 @@ In your views:
 <% end %>
 ```
 
-#### `Showcase::Traits::Share` trait
+#### `Showcase::Traits::Share`
 
 Useful to produce social share links:
 
@@ -207,9 +209,10 @@ In your views:
 <%= project.linkedin_share_link %>
 ```
 
-#### `Showcase::Traits::Seo` trait
+#### `Showcase::Traits::Seo`
 
-Useful to produce SEO meta tags (title, description, Facebook OpenGraph, Twitter cards, and canonical URL):
+Useful to produce SEO meta tags (title, description, Facebook OpenGraph,
+Twitter cards, and canonical URL):
 
 ```ruby
 class ProjectPresenter < Showcase::Presenter
