@@ -13,7 +13,8 @@ module Showcase
           define_method? [name, :seo_tags] do |options = {}|
             meta = Helpers::ConfigObject.new(self, &block).to_hash
             builder = Helpers::SeoMetaBuilder.new(view_context)
-            %i(title description canonical_url image_url canonical_url).map do |tag|
+            parts = %w(title description canonical_url image_url canonical_url).map(&:to_sym)
+            parts.map do |tag|
               builder.send(tag, meta[tag], options) if meta[tag]
             end.compact.join.html_safe
           end

@@ -1,4 +1,4 @@
-# Showcase [![Build Status](https://travis-ci.org/welaika/showcase.png?branch=master)](https://travis-ci.org/welaika/showcase) [![Coverage Status](https://coveralls.io/repos/welaika/showcase/badge.png?branch=master)](https://coveralls.io/r/welaika/showcase)
+# Showcase [![Build Status](https://travis-ci.org/stefanoverna/showcase.png?branch=master)](https://travis-ci.org/stefanoverna/showcase) [![Coverage Status](https://coveralls.io/repos/stefanoverna/showcase/badge.png?branch=master)](https://coveralls.io/r/stefanoverna/showcase)
 
 A simple (< 100 lines of code) but powerful exhibit/presenter implementation.
 It's framework agnostic: works with Rails, Padrino or simply Sinatra.
