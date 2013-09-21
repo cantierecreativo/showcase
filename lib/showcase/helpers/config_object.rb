@@ -1,3 +1,5 @@
+require 'ostruct'
+
 module Showcase
   module Helpers
     class ConfigObject
