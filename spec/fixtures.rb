@@ -1,3 +1,19 @@
+class RailsViewContext < ActionView::Base
+  include ActionView::Helpers::TagHelper
+
+  def capture(*args, &block)
+    block.call(*args)
+  end
+end
+
+class Model
+  extend ActiveModel::Naming
+
+  def to_key
+    Array('1')
+  end
+end
+
 class Person < Struct.new(:name)
 end
 

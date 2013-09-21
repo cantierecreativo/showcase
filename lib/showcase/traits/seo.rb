@@ -1,0 +1,26 @@
+require 'showcase/helpers/config_object'
+require 'showcase/helpers/seo_meta_builder'
+
+module Showcase
+  module Traits
+    module Seo
+      extend ActiveSupport::Concern
+      include Base
+
+      module ClassMethods
+
+        def seo(name = nil, options = {}, &block)
+          define_method? [name, :seo_tags] do |options = {}|
+            meta = Helpers::ConfigObject.new(self, &block).to_hash
+            builder = Helpers::SeoMetaBuilder.new(view_context)
+            %i(title description canonical_url image_url canonical_url).map do |tag|
+              builder.send(tag, meta[tag], options) if meta[tag]
+            end.compact.join.html_safe
+          end
+        end
+
+      end
+    end
+  end
+end
+

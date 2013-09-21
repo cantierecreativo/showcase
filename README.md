@@ -1,17 +1,14 @@
 # Showcase [![Build Status](https://travis-ci.org/welaika/showcase.png?branch=master)](https://travis-ci.org/welaika/showcase) [![Coverage Status](https://coveralls.io/repos/welaika/showcase/badge.png?branch=master)](https://coveralls.io/r/welaika/showcase)
 
-A simple (< 100 lines of code) but powerful exhibit/presenter implementation. It's framework agnostic: works with Rails, Padrino or simply Sinatra.
+A simple (< 100 lines of code) but powerful exhibit/presenter implementation.
+It's framework agnostic: works with Rails, Padrino or simply Sinatra.
 
-## Properties of the Exhibit pattern
+Since version 0.2.0 Showcase is bundled with a set of "traits" you can pick and
+choose to augment your presenters with additional sugar (Rails only).
 
-Citing [Avdi's introductory post](http://devblog.avdi.org/2012/06/04/displaycase-gem-now-available/):
+## Why should I use the Exhibit pattern in my Rails app?
 
-* **It wraps a single model instance.** Not an assortment of objects.
-* **It is a true Decorator.** All unrecognized messages are passed through to the underlying object. This facilitates a gradual migration to the use of Exhibits to encapsulate presentation knowledge, since they can be layered onto models without any change to the existing views. It also enables multiple Exhibits to be layered onto an object, each handling different aspects of presentation.
-* **It brings together a model and a context.** Exhibits need a reference to a “context” object—either a controller or a view context—in order to be able to render templates as well as construct URLs for the object or related resources.
-* **It encapsulates decisions about how to render an object.** The tell-tale of an Exhibit is telling an object “render yourself”, rather than explicitly rendering a template and passing the object in as an argument.
-* **It may modify the behavior of an object.** For instance, an Exhibit might impose a scope on a `Blog#entries` association which only returns entries that are visible to the current user (as determined from the Exhibit’s controller context). Or it might reformat the return value of a `#social_security_number` method to include dashes and have all but the last four digits obscured: `***-**-5678`.
-* **There is a many-to-many relationship between model classes and exhibit classes.** One generic exhibit class may apply to several different types of model. Other exhibits may be specific, not just to a model, but to a model in a particular state, or within a particular viewing context.
+See [Avdi's introductory post](http://devblog.avdi.org/2012/06/04/displaycase-gem-now-available/).
 
 ## Installation
 
@@ -29,15 +26,8 @@ Or install it yourself as:
 
 ## Usage
 
-With Rails, include `Showcase::Helpers` into your controller and/or views:
-
-```ruby
-# config/initializers/showcase.rb
-ActionController::Base.send :include, Showcase::Helpers
-ActionView::Base.send :include, Showcase::Helpers
-```
-
-With Padrino, include `Showcase::Helpers` in your app `helpers` block.
+With Rails, you're already set, move on! With Padrino, include `Showcase::Helpers`
+in your app `helpers` block.
 
 ```ruby
 helpers do
@@ -45,7 +35,8 @@ helpers do
 end
 ```
 
-You can now instantiate new presenters in your controller/views using the included helpers:
+You can now instantiate new presenters in your controller/views using the
+included helpers:
 
 ```ruby
 # this is the object that needs to be presented
@@ -74,7 +65,8 @@ class ProjectPresenter < Showcase::Presenter
   # automatically wraps the attribute into an AdminPresenter
   presents :person, with: AdminPresenter
 
-  # expects project.task to return an enumerable. automatically wraps each task in a TaskPresenter presenter
+  # expects project.task to return an enumerable. automatically wraps each task
+  # in a TaskPresenter presenter
   presents_collection :tasks
 
   # you can use `view_context`, or the shortcut `h`, to access the context.
@@ -83,6 +75,160 @@ class ProjectPresenter < Showcase::Presenter
     h.link_to object.title, object
   end
 end
+```
+
+## Rails
+
+### Generators
+
+Showcase comes with a generator to make the Presenter creation process a little
+faster:
+
+```
+rails generate showcase:presenter User
+```
+
+Will generate `app/presenters/user_presenter.rb`. If your app has a file called
+`app/presenters/base_presenter.rb`, the newly created presenter will inherit
+form `BasePresenter` instead of `Shocase::Presenter`.
+
+### Traits
+
+#### `Showcase::Traits::Record` trait
+
+To be used to present ActiveModel-based records. Inside your presenter, include the traits like this:
+
+```ruby
+class ProjectPresenter < Showcase::Presenter
+  include Showcase::Traits::Record
+end
+```
+
+##### `#dom_id`
+
+```ruby
+present(@project).dom_id # => "project_12"
+```
+
+##### `#dom_class`
+
+```ruby
+present(@project).dom_class # => "project"
+```
+
+##### `#box`
+
+Super useful in acceptance testing to check the presence of a record inside a view:
+
+```erb
+<% present(@project).box do %>
+  <p>Hi there!</p>
+<% end %>
+```
+
+Produces the following:
+
+```html
+<div class="project" id="project_12">
+  <p>Hi there</p>
+</div>
+```
+
+#### `Showcase::Traits::LinkTo` trait
+
+Adds a nice DSL to declare links within your presenter. Use the traits like this:
+
+```ruby
+class ProjectPresenter < Showcase::Presenter
+  include Showcase::Traits::LinkTo
+
+  link_to do |c|
+    c.url     h.project_path(self)
+    c.label   name
+    c.active  h.controller_name == 'projects'
+  end
+
+  link_to :tasks do
+    c.url     h.project_tasks_path(self)
+    c.label   "Tasks"
+    c.active  h.controller_name == 'tasks'
+  end
+end
+```
+
+In your views:
+
+```erb
+<%= project.url %>
+<%= project.tasks_url %>
+
+<%= project.link_active? %>
+<%= project.tasks_link_active? %>
+
+<%= project.link %>
+<%= project.tasks_link %>
+
+<%= project.link('Alternative label') %>
+<%= project.link(class: 'additional_class') %>
+<%= project.link do %>
+  Link content!
+<% end %>
+```
+
+#### `Showcase::Traits::Share` trait
+
+Useful to produce social share links:
+
+```ruby
+class ProjectPresenter < Showcase::Presenter
+  include Showcase::Traits::Share
+
+  share do |c|
+    c.url         h.project_path(self)
+    c.text        name
+    c.image_url   cover_image
+  end
+end
+```
+In your views:
+
+```erb
+<%= project.twitter_share_url %>
+<%= project.twitter_share_link %>
+<%= project.twitter_share_link('Alternative label') %>
+<%= project.twitter_share_link(class: 'additional_class') %>
+<%= project.twitter_share_link do %>
+  Link content!
+<% end %>
+
+<%= project.facebook_share_link %>
+<%= project.gplus_share_link %>
+<%= project.pinterest_share_link %>
+<%= project.linkedin_share_link %>
+```
+
+#### `Showcase::Traits::Seo` trait
+
+Useful to produce SEO meta tags (title, description, Facebook OpenGraph, Twitter cards, and canonical URL):
+
+```ruby
+class ProjectPresenter < Showcase::Presenter
+  include Showcase::Traits::Seo
+
+  seo do |c|
+    c.title           name
+    c.description     [ description, 'Fallback description if blank' ]
+    c.image_url       cover_thumb_image
+    c.canonical_url   h.project_path(self)
+  end
+end
+```
+In your views:
+
+```erb
+<% content_for(:head) do %>
+  <%= present(@project).seo_tags(title_suffix: ' - BaseClump') %>
+<% end %>
 ```
 
 ## Contributing
