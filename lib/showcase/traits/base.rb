@@ -11,7 +11,10 @@ module Showcase
           if method_defined?(method_name)
             false
           else
-            define_method(method_name, &block)
+            method_module = Module.new do
+              define_method(method_name, &block)
+            end
+            include(method_module)
             true
           end
         end

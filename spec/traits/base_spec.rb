@@ -15,6 +15,22 @@ module Showcase::Traits
         expect(klass.new.foo).to be_true
       end
 
+      it 'overriding the method allows to call super' do
+        klass = Class.new do
+          include Base
+
+          define_method? :foo do
+            true
+          end
+
+          def foo
+            super
+          end
+        end
+
+        expect(klass.new.foo).to be_true
+      end
+
       context 'if the method is already present' do
         it 'no-ops ' do
           klass = Class.new do

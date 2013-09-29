@@ -1,4 +1,4 @@
 module Showcase
-  VERSION = "0.2.0.beta"
+  VERSION = "0.2.0.beta.1"
 end
 
