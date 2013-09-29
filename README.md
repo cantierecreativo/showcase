@@ -5,7 +5,7 @@ It's framework agnostic: works with Rails, Padrino or just Sinatra.
 
 Since version 0.2.0 Showcase is bundled with [a set of "traits"](https://github.com/stefanoverna/showcase#traits)
 you can pick and choose to augment your presenters with additional sugar
-(available in Rails only).
+(available in Rails 3+ only).
 
 ## Why should I use presenters in my Rails app?
 
