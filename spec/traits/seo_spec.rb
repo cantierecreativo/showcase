@@ -15,12 +15,14 @@ module Showcase::Traits
         seo do |c|
           c.title = 'foo'
           c.description 'bar'
+          c.title_suffix = ' - qux'
         end
       end
     }
 
     describe '#seo' do
-      let(:options) { double('options') }
+      let(:options) { { title_suffix: ' - qux' } }
+
       before do
         Showcase::Helpers::SeoMetaBuilder.stub(:new).with(view).and_return(builder)
         builder.stub(:title).with('foo', options).and_return('<title>')
