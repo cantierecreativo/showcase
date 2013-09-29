@@ -1,4 +1,5 @@
 require 'showcase/helpers/config_object'
+require 'active_support/core_ext/object/to_query'
 
 module Showcase
   module Traits
