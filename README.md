@@ -137,6 +137,18 @@ Produces the following:
 <div class="project" id="project_12">
   <p>Hi there</p>
 </div>
+
+Additional HTML attributes can be optionally specified within a config block 
+inside the presenter:
+
+```ruby
+class ProjectPresenter < Showcase::Presenter
+  include Showcase::Traits::Record
+
+  box do |c|
+    c.html_options class: 'another-class', role: 'project'
+  end
+end
 ```
 
 #### `Showcase::Traits::LinkTo`
@@ -151,6 +163,7 @@ class ProjectPresenter < Showcase::Presenter
     c.url           h.project_path(self)
     c.label         name
     c.active        h.controller_name == 'projects'
+    c.active_class  'current'
     c.html_options  role: 'label'
   end
 

@@ -12,6 +12,7 @@ module Showcase
     alias_method :object, :__getobj__
     alias_method :h, :view_context
     alias_method :try, :__send__
+    alias_method :__decorator_class__, :class
 
     def initialize(obj, context)
       super(obj)

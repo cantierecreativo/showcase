@@ -23,8 +23,10 @@ module Showcase::Traits
           c.html_options role: 'label'
         end
 
-        link_to :foo do
+        link_to :foo do |c|
           c.url = '#foo'
+          c.active_class = 'current'
+          c.active = active
         end
 
         def url
@@ -70,12 +72,18 @@ module Showcase::Traits
           let(:active) { true }
 
           it 'adds an active class to the link' do
-            expect(subject.link).to have_tag(:a, with: { class: 'active' })
+            expect(subject.link('label')).to have_tag(:a, with: { class: 'active' })
           end
 
           context 'with additional classes' do
             it 'it sums them' do
-              expect(subject.link(class: 'extra')).to have_tag(:a, with: { class: 'extra active' })
+              expect(subject.link('label', class: 'extra')).to have_tag(:a, with: { class: 'extra active' })
+            end
+          end
+
+          context 'if a different CSS class was specified' do
+            it 'adds it to the link' do
+              expect(subject.foo_link('label')).to have_tag(:a, with: { class: 'current' })
             end
           end
         end

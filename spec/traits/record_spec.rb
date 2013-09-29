@@ -8,6 +8,10 @@ module Showcase::Traits
     let(:presenter) {
       Class.new(Showcase::Presenter) do
         include Record
+
+        box do |c|
+          c.html_options role: 'actor', class: 'first'
+        end
       end
     }
     subject { presenter.new(record, view) }
@@ -28,6 +32,11 @@ module Showcase::Traits
       it 'wraps content inside an element that uniquely identifies the record' do
         result = subject.box { "foo" }
         expect(result).to have_tag(:div, with: { class: 'model', id: 'model_1' })
+      end
+
+      it 'adds attributes specified within box block' do
+        result = subject.box { "foo" }
+        expect(result).to have_tag(:div, with: { role: 'actor', class: 'first' })
       end
 
       context 'with a specified tag' do

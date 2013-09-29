@@ -40,8 +40,14 @@ module Showcase
         return nil unless value.present?
 
         args.map do |name|
-          name = name.to_s.sub(/_/, ":")
-          context.tag(:meta, name: name, content: value)
+          chunks = name.to_s.split("_")
+          attr_name = if chunks.first == 'og'
+            'property'
+          else
+            'name'
+          end
+          name = chunks.join(':')
+          context.tag(:meta, attr_name => name, content: value)
         end.join.html_safe
       end
     end

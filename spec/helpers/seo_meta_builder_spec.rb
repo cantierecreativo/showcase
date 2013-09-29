@@ -13,8 +13,8 @@ module Showcase::Helpers
         expect(subject.title('foo')).to have_tag(:title, text: 'foo')
       end
 
-      it 'produces a ug:title meta tag' do
-        expect(subject.title('foo')).to have_tag(:meta, with: { name: 'og:title', content: 'foo' })
+      it 'produces a og:title meta tag' do
+        expect(subject.title('foo')).to have_tag(:meta, with: { property: 'og:title', content: 'foo' })
       end
 
       it 'produces a twitter:title meta tag' do
@@ -32,7 +32,7 @@ module Showcase::Helpers
           expect(subject.title('foo', title_suffix: ' - bar')).to have_tag(:title, text: 'foo - bar')
         end
         it 'does not suffix meta tags' do
-          expect(subject.title('foo')).to have_tag(:meta, with: { name: 'og:title', content: 'foo' })
+          expect(subject.title('foo')).to have_tag(:meta, with: { property: 'og:title', content: 'foo' })
           expect(subject.title('foo')).to have_tag(:meta, with: { name: 'twitter:title', content: 'foo' })
         end
       end
@@ -44,7 +44,7 @@ module Showcase::Helpers
       end
 
       it 'produces a og:description meta tag' do
-        expect(subject.description('foo')).to have_tag(:meta, with: { name: 'og:description', content: 'foo' })
+        expect(subject.description('foo')).to have_tag(:meta, with: { property: 'og:description', content: 'foo' })
       end
 
       it 'produces a twitter:description meta tag' do
@@ -60,7 +60,7 @@ module Showcase::Helpers
 
     describe '#image_url' do
       it 'produces a og:image meta tag' do
-        expect(subject.image_url('foo')).to have_tag(:meta, with: { name: 'og:image', content: 'foo' })
+        expect(subject.image_url('foo')).to have_tag(:meta, with: { property: 'og:image', content: 'foo' })
       end
 
       it 'produces a twitter:image meta tag' do
@@ -69,14 +69,14 @@ module Showcase::Helpers
 
       context 'with multiple values' do
         it 'uses the first non-blank' do
-          expect(subject.image_url(['', nil, 'foo'])).to have_tag(:meta, with: { name: 'og:image', content: 'foo' })
+          expect(subject.image_url(['', nil, 'foo'])).to have_tag(:meta, with: { property: 'og:image', content: 'foo' })
         end
       end
     end
 
     describe '#canonical_url' do
       it 'produces a og:url meta tag' do
-        expect(subject.canonical_url('foo')).to have_tag(:meta, with: { name: 'og:url', content: 'foo' })
+        expect(subject.canonical_url('foo')).to have_tag(:meta, with: { property: 'og:url', content: 'foo' })
       end
 
       it 'produces a canonical link tag' do
@@ -85,7 +85,7 @@ module Showcase::Helpers
 
       context 'with multiple values' do
         it 'uses the first non-blank' do
-          expect(subject.canonical_url(['', nil, 'foo'])).to have_tag(:meta, with: { name: 'og:url', content: 'foo' })
+          expect(subject.canonical_url(['', nil, 'foo'])).to have_tag(:meta, with: { property: 'og:url', content: 'foo' })
         end
       end
     end

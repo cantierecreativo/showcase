@@ -1,33 +1,57 @@
-require 'action_view/record_identifier'
-
 module Showcase
   module Traits
 
     module Record
       extend ActiveSupport::Concern
 
+      module ClassMethods
+        def box(&block)
+          @box_config_block = block
+        end
+
+        def __box_config_block__
+          @box_config_block
+        end
+      end
+
       def dom_id
-        ActionView::RecordIdentifier.dom_id(self)
+        record_identifier.dom_id(self)
       end
 
       def dom_class
-        ActiveModel::Naming.param_key(self)
+        record_identifier.dom_class(self)
       end
 
       def box(*args, &block)
         options = args.extract_options!
-        options.symbolize_keys!
-
         tag = args.pop || :div
 
-        options[:class] ||= ""
-        css_classes = options[:class].split(/\s+/) << dom_class
-        options[:class] = css_classes.join(" ")
+        config_block = self.__decorator_class__.__box_config_block__
+        config_options = if config_block
+                           Helpers::ConfigObject.new(self, &config_block).to_struct.html_options
+                         else
+                           {}
+                         end
 
-        options[:id] = dom_id
+        html_options = HtmlOptions.new(config_options)
+        html_options.merge_attrs!(options)
+        html_options.add_class!(dom_class)
+        html_options.merge_attrs!(id: dom_id)
 
-        h.content_tag(tag, options) do
+        h.content_tag(tag, html_options.to_h) do
           h.capture(self, &block)
+        end
+      end
+
+      private
+
+      def record_identifier
+        if defined?(ActionView::RecordIdentifier)
+          ActionView::RecordIdentifier
+        elsif defined?(ActionController::RecordIdentifier)
+          ActionController::RecordIdentifier
+        else
+          raise 'No RecordIdentifier found!'
         end
       end
     end
