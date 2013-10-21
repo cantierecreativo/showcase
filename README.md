@@ -90,7 +90,7 @@ rails generate showcase:presenter User
 
 Will generate `app/presenters/user_presenter.rb`. If your Rails app has the file
 `app/presenters/base_presenter.rb`, the newly created presenter will inherit
-from `BasePresenter` instead of `Shocase::Presenter`.
+from `BasePresenter` instead of `Showcase::Presenter`.
 
 ### Traits
 
