@@ -3,7 +3,7 @@
 A simple (< 100 lines of code) but powerful exhibit/presenter implementation.
 It's framework agnostic: works with Rails, Padrino or just Sinatra.
 
-Since version 0.2.0 Showcase is bundled with [a set of "traits"](https://github.com/stefanoverna/showcase#traits)
+Since version 0.2.0 Showcase is bundled with [a set of optional "traits"](https://github.com/stefanoverna/showcase#traits)
 you can pick and choose to augment your presenters with additional sugar
 (available in Rails 3+ only).
 
@@ -15,15 +15,21 @@ See [Avdi's Exhibits introductory post](http://devblog.avdi.org/2012/06/04/displ
 
 Add this line to your application's Gemfile:
 
-    gem 'showcase'
+```ruby
+gem 'showcase'
+```
 
 And then execute:
 
-    $ bundle
+```
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install showcase
+```
+$ gem install showcase
+```
 
 ## Usage
 
@@ -126,7 +132,7 @@ Super useful in acceptance testing to check the presence of a record inside a
 view:
 
 ```erb
-<% present(@project).box do %>
+<% present(@project, class: 'big').box do %>
   <p>Hi there!</p>
 <% end %>
 ```
@@ -134,9 +140,10 @@ view:
 Produces the following:
 
 ```html
-<div class="project" id="project_12">
+<div class="project big" id="project_12">
   <p>Hi there</p>
 </div>
+```
 
 Additional HTML attributes can be optionally specified within a config block 
 inside the presenter:
@@ -228,7 +235,7 @@ In your views:
 #### `Showcase::Traits::Seo`
 
 Useful to produce SEO meta tags (title, description, Facebook OpenGraph,
-Twitter cards, and canonical URL):
+Twitter cards, and canonical URLs):
 
 ```ruby
 class ProjectPresenter < Showcase::Presenter
@@ -242,6 +249,7 @@ class ProjectPresenter < Showcase::Presenter
   end
 end
 ```
+
 In your views:
 
 ```erb
