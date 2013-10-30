@@ -42,6 +42,7 @@ module Showcase
 
             link_to link_name do |c|
               meta = Helpers::ConfigObject.new(self, &block).to_struct
+              html_options = meta.html_options || {}
               params = Hash[
                 settings[:params].map do |param, meta_key|
                   [ param, meta.send(meta_key) ]
@@ -49,7 +50,7 @@ module Showcase
               ]
               c.url "#{settings[:url]}?#{params.to_query}"
               c.label settings[:label]
-              c.html_options = { target: :blank }
+              c.html_options = html_options.reverse_merge(target: '_blank')
             end
           end
         end

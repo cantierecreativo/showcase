@@ -15,6 +15,7 @@ module Showcase::Traits
           c.url = 'url'
           c.text = 'text'
           c.image_url = 'image'
+          c.html_options = { role: 'share' }
         end
 
         share :foo do |c|
@@ -39,8 +40,17 @@ module Showcase::Traits
         it "produces a #{provider} share link" do
           expect(subject.send("#{provider}_share_link")).to have_tag(:a)
         end
+
         it "produces a #{provider} share url" do
           expect(subject.send("#{provider}_share_url")).to eq url
+        end
+
+        it "adds a target :blank to the link" do
+          expect(subject.send("#{provider}_share_link")).to have_tag(:a, with: { target: '_blank' })
+        end
+
+        it "merges additional html_options" do
+          expect(subject.send("#{provider}_share_link")).to have_tag(:a, with: { role: 'share' })
         end
 
         context 'with prefix' do
