@@ -7,7 +7,7 @@ Gem::Specification.new do |gem|
   gem.name          = 'showcase'
   gem.version       = Showcase::VERSION
   gem.authors       = ['Stefano Verna']
-  gem.email         = ['stefano.verna@welaika.com']
+  gem.email         = ['stefano.verna@gmail.com']
   gem.description   = %q{A barebone and framework agnostic presenter implementation}
   gem.summary       = %q{A barebone and framework agnostic presenter implementation}
   gem.homepage      = 'https://github.com/welaika/showcase'

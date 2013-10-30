@@ -5,8 +5,8 @@ rvm:
   - "2.0.0"
 
 gemfile:
-  - "gemfiles/activerecord3.gemfile"
-  - "gemfiles/activerecord4.gemfile"
+  - "gemfiles/rails_32.gemfile"
+  - "gemfiles/rails_4.gemfile"
 
 script: "bundle exec rake spec"
 
