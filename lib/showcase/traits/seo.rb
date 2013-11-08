@@ -10,7 +10,7 @@ module Showcase
       module ClassMethods
 
         def seo(name = nil, options = {}, &block)
-          define_method? [name, :seo_tags] do |options = {}|
+          define_module_method [name, :seo_tags] do |options = {}|
             meta = Helpers::ConfigObject.new(self, &block).to_hash
             meta.merge!(options.symbolize_keys) if options
 

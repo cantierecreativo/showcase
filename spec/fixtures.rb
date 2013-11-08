@@ -87,7 +87,7 @@ class NilClassPresenter < Showcase::Presenter
 end
 
 class Context
-  include Showcase::Helpers
+  include Showcase::Helpers::Present
 
   def bold(text)
     "**#{text}**"

@@ -10,15 +10,15 @@ module Showcase
 
       module ClassMethods
         def link_to(name = nil, &block)
-          define_method? [name, :url] do
+          define_module_method [name, :url] do
             Helpers::ConfigObject.new(self, &block).to_struct.url
           end
 
-          define_method? [name, :link_active?] do
+          define_module_method [name, :link_active?] do
             Helpers::ConfigObject.new(self, &block).to_struct.active
           end
 
-          define_method? [name, :link] do |*args, &link_block|
+          define_module_method [name, :link] do |*args, &link_block|
             config = Helpers::ConfigObject.new(self, &block).to_struct
 
             html_options = HtmlOptions.new(config.html_options)

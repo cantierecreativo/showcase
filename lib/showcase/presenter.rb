@@ -1,11 +1,13 @@
 require 'delegate'
-require 'showcase/helpers'
+require 'showcase/helpers/present'
+require 'showcase/helpers/module_method_builder'
 require 'active_support/core_ext/array/extract_options'
 require 'active_support/core_ext/hash/keys'
 
 module Showcase
   class Presenter < SimpleDelegator
-    include Helpers
+    include Helpers::Present
+    extend Helpers::ModuleMethodBuilder
 
     attr_reader :view_context
 
@@ -47,19 +49,15 @@ module Showcase
       options.assert_valid_keys(:with, :nil_presenter)
       presenter_klass = options.fetch(:with, nil)
 
-      methods_module = Module.new do
-        args.each do |attr|
-          define_method attr do
-            send(method,
-                 object.send(attr),
-                 presenter_klass,
-                 view_context,
-                 options.slice(:nil_presenter))
-          end
+      args.each do |attr|
+        define_module_method attr do
+          send(method,
+               object.send(attr),
+               presenter_klass,
+               view_context,
+               options.slice(:nil_presenter))
         end
       end
-
-      include(methods_module)
     end
   end
 end
