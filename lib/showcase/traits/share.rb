@@ -45,7 +45,7 @@ module Showcase
               html_options = meta.html_options || {}
               params = Hash[
                 settings[:params].map do |param, meta_key|
-                  values = [:"#{social}_#{meta_key}", meta_key].map { |key| meta[key] }
+                  values = [:"#{social}_#{meta_key}", meta_key].map { |key| meta.send(key) }
                   [ param, values.find(&:presence) ]
                 end
               ]
