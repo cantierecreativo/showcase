@@ -33,12 +33,12 @@ $ gem install showcase
 
 ## Usage
 
-With Rails, you're already set, move on! With Padrino, include `Showcase::Helpers`
+With Rails, you're already set, move on! With Padrino, include `Showcase::Helpers::Present`
 in your app `helpers` block.
 
 ```ruby
 helpers do
-  include Showcase::Helpers
+  include Showcase::Helpers::Present
 end
 ```
 
