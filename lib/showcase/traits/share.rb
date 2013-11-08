@@ -45,9 +45,11 @@ module Showcase
               html_options = meta.html_options || {}
               params = Hash[
                 settings[:params].map do |param, meta_key|
-                  [ param, meta.send(meta_key) ]
+                  values = [:"#{social}_#{meta_key}", meta_key].map { |key| meta[key] }
+                  [ param, values.find(&:presence) ]
                 end
               ]
+
               c.url "#{settings[:url]}?#{params.to_query}"
               c.label settings[:label]
               c.html_options = html_options.reverse_merge(target: '_blank')

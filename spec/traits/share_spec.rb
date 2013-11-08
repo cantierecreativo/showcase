@@ -14,6 +14,7 @@ module Showcase::Traits
         share do |c|
           c.url = 'url'
           c.text = 'text'
+          c.twitter_text = 'twitter text'
           c.image_url = 'image'
           c.html_options = { role: 'share' }
         end
@@ -29,7 +30,7 @@ module Showcase::Traits
 
     describe '#social_share' do
       expected_urls = {
-        twitter: "https://twitter.com/intent/tweet?text=text&url=url",
+        twitter: "https://twitter.com/intent/tweet?text=twitter+text&url=url",
         facebook: "http://www.facebook.com/sharer/sharer.php?u=url",
         gplus: "https://plus.google.com/share?url=url",
         pinterest: "http://www.pinterest.com/pin/create/button/?media=image&title=text&url=url",

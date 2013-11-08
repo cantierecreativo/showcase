@@ -31,7 +31,7 @@ module Showcase
       private
 
       def first_nonblank(values)
-        Array(values).map(&:presence).compact.first
+        Array(values).find(&:presence)
       end
 
       def seo_meta_tags(*args)
