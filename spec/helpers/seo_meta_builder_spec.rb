@@ -79,6 +79,10 @@ module Showcase::Helpers
         expect(subject.canonical_url('foo')).to have_tag(:meta, with: { property: 'og:url', content: 'foo' })
       end
 
+      it 'produces a twitter:url meta tag' do
+        expect(subject.canonical_url('foo')).to have_tag(:meta, with: { name: 'twitter:url', content: 'foo' })
+      end
+
       it 'produces a canonical link tag' do
         expect(subject.canonical_url('foo')).to have_tag(:link, with: { rel: 'canonical', href: 'foo' })
       end
@@ -121,6 +125,20 @@ module Showcase::Helpers
     describe '#site_name' do
       it 'produces a og:site_name meta tag' do
         expect(subject.site_name('foo')).to have_tag(:meta, with: { property: 'og:site_name', content: 'foo' })
+      end
+    end
+
+    describe '#card_type' do
+      it 'produces a twitter:card meta tag' do
+        expect(subject.card_type('foo')).to have_tag(:meta, with: { name: 'twitter:card', content: 'foo' })
+      end
+    end
+
+    describe '#video_size' do
+      it 'produces twitter:player meta tags' do
+        result = subject.video_size([10, 20])
+        expect(result).to have_tag(:meta, with: { name: 'twitter:player:width', content: '10' })
+        expect(result).to have_tag(:meta, with: { name: 'twitter:player:height', content: '20' })
       end
     end
   end

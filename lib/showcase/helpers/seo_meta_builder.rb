@@ -24,13 +24,24 @@ module Showcase
       end
 
       def iframe_video_url(video_url, options = {})
-        seo_meta_tags('og:video:url', 'twitter:player', video_url) <<
-        seo_meta_tags('og:video:type', 'text/html')
+        seo_meta_tags('og:video:url', video_url) <<
+        seo_meta_tags('og:video:type', 'text/html') <<
+        seo_meta_tags('twitter:player', video_url)
       end
 
       def stream_video_url(video_url, options = {})
-        seo_meta_tags('og:video:url', 'twitter:player:stream', video_url) <<
-        seo_meta_tags('og:video:type', 'video/mp4')
+        seo_meta_tags('og:video:url', video_url) <<
+        seo_meta_tags('og:video:type', 'video/mp4') <<
+        seo_meta_tags('twitter:player:stream', video_url)
+      end
+
+      def card_type(type, options = {})
+        seo_meta_tags('twitter:card', type)
+      end
+
+      def video_size(size, options = {})
+        seo_meta_tags('twitter:player:width', size.first) <<
+        seo_meta_tags('twitter:player:height', size.last)
       end
 
       def site_name(name, options = {})
@@ -38,7 +49,7 @@ module Showcase
       end
 
       def canonical_url(url, options = {})
-        seo_meta_tags('og:url', url) <<
+        seo_meta_tags('og:url', 'twitter:url', url) <<
         context.tag(:link, rel: "canonical", "href" => url)
       end
 
