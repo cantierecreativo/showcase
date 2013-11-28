@@ -24,8 +24,10 @@ module Showcase
             builder = Helpers::SeoMetaBuilder.new(view_context)
             parts = %w(
               title description site_name
+              card_type
               canonical_url
-              image_url iframe_video_url stream_video_url
+              image_url
+              iframe_video_url stream_video_url video_size
             ).map(&:to_sym)
 
             parts.map do |tag|
