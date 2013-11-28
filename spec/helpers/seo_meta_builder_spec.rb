@@ -90,6 +90,39 @@ module Showcase::Helpers
       end
     end
 
+    describe '#iframe_video_url' do
+      it 'produces a og:video:url meta tag' do
+        expect(subject.iframe_video_url('foo')).to have_tag(:meta, with: { property: 'og:video:url', content: 'foo' })
+      end
+
+      it 'produces a twitter:player meta tag' do
+        expect(subject.iframe_video_url('foo')).to have_tag(:meta, with: { name: 'twitter:player', content: 'foo' })
+      end
+
+      it 'produces a og:video:type meta tag' do
+        expect(subject.iframe_video_url('foo')).to have_tag(:meta, with: { property: 'og:video:type', content: 'text/html' })
+      end
+    end
+
+    describe '#stream_video_url' do
+      it 'produces a og:video:url meta tag' do
+        expect(subject.stream_video_url('foo')).to have_tag(:meta, with: { property: 'og:video:url', content: 'foo' })
+      end
+
+      it 'produces a twitter:player:stream meta tag' do
+        expect(subject.stream_video_url('foo')).to have_tag(:meta, with: { name: 'twitter:player:stream', content: 'foo' })
+      end
+
+      it 'produces a og:video:type meta tag' do
+        expect(subject.stream_video_url('foo')).to have_tag(:meta, with: { property: 'og:video:type', content: 'video/mp4' })
+      end
+    end
+
+    describe '#site_name' do
+      it 'produces a og:site_name meta tag' do
+        expect(subject.site_name('foo')).to have_tag(:meta, with: { property: 'og:site_name', content: 'foo' })
+      end
+    end
   end
 end
 

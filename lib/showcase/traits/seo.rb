@@ -22,7 +22,11 @@ module Showcase
             meta.merge!(options.symbolize_keys) if options
 
             builder = Helpers::SeoMetaBuilder.new(view_context)
-            parts = %w(title description canonical_url image_url canonical_url).map(&:to_sym)
+            parts = %w(
+              title description site_name
+              canonical_url
+              image_url iframe_video_url stream_video_url
+            ).map(&:to_sym)
 
             parts.map do |tag|
               builder.send(tag, meta[tag], meta.except(*parts)) if meta[tag]

@@ -12,19 +12,33 @@ module Showcase
         title += options[:title_suffix] if options[:title_suffix]
 
         context.content_tag(:title, title) <<
-        seo_meta_tags(:og_title, :twitter_title, values)
+        seo_meta_tags('og:title', 'twitter:title', values)
       end
 
       def description(values, options = {})
-        seo_meta_tags(:description, :og_description, :twitter_description, values)
+        seo_meta_tags('description', 'og:description', 'twitter:description', values)
       end
 
       def image_url(image_url, options = {})
-        seo_meta_tags(:og_image, :twitter_image, image_url)
+        seo_meta_tags('og:image', 'twitter:image', image_url)
+      end
+
+      def iframe_video_url(video_url, options = {})
+        seo_meta_tags('og:video:url', 'twitter:player', video_url) <<
+        seo_meta_tags('og:video:type', 'text/html')
+      end
+
+      def stream_video_url(video_url, options = {})
+        seo_meta_tags('og:video:url', 'twitter:player:stream', video_url) <<
+        seo_meta_tags('og:video:type', 'video/mp4')
+      end
+
+      def site_name(name, options = {})
+        seo_meta_tags('og:site_name', name)
       end
 
       def canonical_url(url, options = {})
-        seo_meta_tags(:og_url, url) <<
+        seo_meta_tags('og:url', url) <<
         context.tag(:link, rel: "canonical", "href" => url)
       end
 
@@ -40,7 +54,7 @@ module Showcase
         return nil unless value.present?
 
         args.map do |name|
-          chunks = name.to_s.split("_")
+          chunks = name.to_s.split(":")
           attr_name = if chunks.first == 'og'
             'property'
           else
