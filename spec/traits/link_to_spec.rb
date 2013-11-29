@@ -81,9 +81,15 @@ module Showcase::Traits
             end
           end
 
-          context 'if a different CSS class was specified' do
+          context 'if a different CSS class was specified at DSL level' do
             it 'adds it to the link' do
               expect(subject.foo_link('label')).to have_tag(:a, with: { class: 'current' })
+            end
+          end
+
+          context 'if a different CSS class was specified at method-call level' do
+            it 'adds it to the link' do
+              expect(subject.link('label', active_class: 'current')).to have_tag(:a, with: { class: 'current' })
             end
           end
         end
