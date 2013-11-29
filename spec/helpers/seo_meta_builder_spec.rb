@@ -140,6 +140,12 @@ module Showcase::Helpers
         expect(result).to have_tag(:meta, with: { name: 'twitter:player:width', content: '10' })
         expect(result).to have_tag(:meta, with: { name: 'twitter:player:height', content: '20' })
       end
+
+      it 'produces og:video meta tags' do
+        result = subject.video_size([10, 20])
+        expect(result).to have_tag(:meta, with: { property: 'og:video:width', content: '10' })
+        expect(result).to have_tag(:meta, with: { property: 'og:video:height', content: '20' })
+      end
     end
   end
 end

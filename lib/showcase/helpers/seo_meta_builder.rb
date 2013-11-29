@@ -41,7 +41,9 @@ module Showcase
 
       def video_size(size, options = {})
         seo_meta_tags('twitter:player:width', size.first) <<
-        seo_meta_tags('twitter:player:height', size.last)
+        seo_meta_tags('twitter:player:height', size.last) <<
+        seo_meta_tags('og:video:width', size.first) <<
+        seo_meta_tags('og:video:height', size.last)
       end
 
       def site_name(name, options = {})
