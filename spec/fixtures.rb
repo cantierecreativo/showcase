@@ -17,6 +17,12 @@ end
 class Person < Struct.new(:name)
 end
 
+class Customer < Person
+end
+
+class EnterpriseCustomer < Customer
+end
+
 class Project < Struct.new(:name)
   def owner
     Person.new("Stefano Verna")

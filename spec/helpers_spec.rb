@@ -2,12 +2,17 @@ require 'spec_helper'
 
 describe Showcase::Helpers do
   let(:object) { Person.new('Steve Ballmer') }
+  let(:derived_object) { EnterpriseCustomer.new('Tito Traves') }
   let(:context) { Context.new }
 
   describe '.present' do
-    it 'instanciate a new presenter, inferring the class' do
+    it 'instantiates a new presenter, inferring the class' do
       PersonPresenter.stub(:new).with(object, context).and_return 'Presenter'
-      context.present(object, PersonPresenter).should == 'Presenter'
+      context.present(object).should == 'Presenter'
+    end
+    it "instantiates a new presenter, searching presenter class in object ancestors chain" do
+      PersonPresenter.stub(:new).with(derived_object, context).and_return 'Presenter'
+      context.present(derived_object).should == 'Presenter'
     end
     it 'the presenter class to use can be specified as the second parameter' do
       ProjectPresenter.stub(:new).with(object, context).and_return 'Presenter'
@@ -31,4 +36,3 @@ describe Showcase::Helpers do
     end
   end
 end
-

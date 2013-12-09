@@ -100,7 +100,7 @@ from `BasePresenter` instead of `Showcase::Presenter`.
 
 ### Traits
 
-Please [read the tests](https://github.com/stefanoverna/showcase/tree/master/lib/showcase/traits) 
+Please [read the tests](https://github.com/stefanoverna/showcase/tree/master/lib/showcase/traits)
 for a detailed explanation of each method available.
 
 #### `Showcase::Traits::Record`
@@ -145,7 +145,7 @@ Produces the following:
 </div>
 ```
 
-Additional HTML attributes can be optionally specified within a config block 
+Additional HTML attributes can be optionally specified within a config block
 inside the presenter:
 
 ```ruby
@@ -258,6 +258,23 @@ In your views:
 <% end %>
 ```
 
+
+## Testing
+
+Install gems:
+
+```
+$ bundle
+$ rake appraisal:install
+```
+
+Launch tests:
+
+```
+rake appraisal
+```
+
+
 ## Contributing
 
 1. Fork it
@@ -265,4 +282,3 @@ In your views:
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
-

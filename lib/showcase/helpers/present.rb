@@ -19,7 +19,7 @@ module Showcase
         options.assert_valid_keys(:nil_presenter)
 
         if obj || options.fetch(:nil_presenter, false)
-          klass ||= "#{obj.class.name}Presenter".constantize
+          klass ||= presenter_class(obj)
           klass.new(obj, context)
         else
           nil
@@ -29,7 +29,15 @@ module Showcase
       def present_collection(obj, klass = nil, context = presenter_context, options = {})
         obj.map { |o| present(o, klass, context, options) }
       end
+
+      private
+
+      def presenter_class(obj)
+        obj.class.ancestors.each do |k|
+          klass = "#{k.name}Presenter".safe_constantize
+          return klass if klass
+        end
+      end
     end
   end
 end
-
