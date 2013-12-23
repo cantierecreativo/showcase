@@ -2,6 +2,8 @@ require 'active_support/concern'
 require 'active_support/inflector'
 require 'active_support/core_ext/hash/keys'
 
+require 'showcase/errors'
+
 module Showcase
   module Helpers
     module Present
@@ -20,6 +22,9 @@ module Showcase
 
         if obj || options.fetch(:nil_presenter, false)
           klass ||= presenter_class(obj)
+          if klass.nil?
+            raise Showcase::PresenterClassNotFound, "Unable to guess a presenter class for #{obj.inspect}!"
+          end
           klass.new(obj, context)
         else
           nil
@@ -37,7 +42,9 @@ module Showcase
           klass = "#{k.name}Presenter".safe_constantize
           return klass if klass
         end
+        nil
       end
     end
   end
 end
+
