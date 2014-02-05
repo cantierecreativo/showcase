@@ -13,8 +13,8 @@ module Showcase::Traits
 
         share do |c|
           c.url = 'url'
-          c.text = 'text'
-          c.twitter_text = 'twitter text'
+          c.text = ['', 'text']
+          c.twitter_text = ['', 'twitter text']
           c.image_url = 'image'
           c.html_options = { role: 'share' }
         end

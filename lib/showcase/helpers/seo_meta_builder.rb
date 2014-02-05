@@ -1,3 +1,5 @@
+require 'showcase/helpers/first_nonblank'
+
 module Showcase
   module Helpers
     class SeoMetaBuilder
@@ -8,7 +10,7 @@ module Showcase
       end
 
       def title(values, options = {})
-        title = first_nonblank(values)
+        title = FirstNonBlank.find(values)
         title += options[:title_suffix] if options[:title_suffix]
 
         context.content_tag(:title, title) <<
@@ -57,12 +59,8 @@ module Showcase
 
       private
 
-      def first_nonblank(values)
-        Array(values).find(&:presence)
-      end
-
       def seo_meta_tags(*args)
-        value = first_nonblank(args.pop)
+        value = FirstNonBlank.find(args.pop)
 
         return nil unless value.present?
 

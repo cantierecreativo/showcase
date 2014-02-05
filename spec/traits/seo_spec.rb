@@ -17,16 +17,16 @@ module Showcase::Traits
         end
 
         seo do |c|
-          c.title = 'foo'
-          c.description 'bar'
+          c.title = ['', 'foo']
+          c.description = ['', 'bar']
         end
       end
     }
 
     describe '.seo' do
       let(:expected_options) { { title_suffix: ' - qux' } }
-      let(:expected_description) { 'bar' }
-      let(:expected_title) { 'foo' }
+      let(:expected_description) { ['', 'bar'] }
+      let(:expected_title) { ['', 'foo'] }
 
       before do
         Showcase::Helpers::SeoMetaBuilder.stub(:new).with(view).and_return(builder)

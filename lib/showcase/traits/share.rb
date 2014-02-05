@@ -1,4 +1,5 @@
 require 'showcase/helpers/config_object'
+require 'showcase/helpers/first_nonblank'
 require 'active_support/core_ext/object/to_query'
 
 module Showcase
@@ -45,7 +46,9 @@ module Showcase
               html_options = meta.html_options || {}
               params = Hash[
                 settings[:params].map do |param, meta_key|
-                  values = [:"#{social}_#{meta_key}", meta_key].map { |key| meta.send(key) }
+                  values = [:"#{social}_#{meta_key}", meta_key].map do |key|
+                    FirstNonBlank.find(meta.send(key))
+                  end
                   [ param, values.find(&:presence) ]
                 end
               ]
