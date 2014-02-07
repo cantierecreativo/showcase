@@ -132,7 +132,7 @@ Super useful in acceptance testing to check the presence of a record inside a
 view:
 
 ```erb
-<% present(@project, class: 'big').box do %>
+<% present(@project).box(class: 'big') do %>
   <p>Hi there!</p>
 <% end %>
 ```
