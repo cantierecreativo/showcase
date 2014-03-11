@@ -10,7 +10,7 @@ module Showcase
       end
 
       def title(values, options = {})
-        title = FirstNonBlank.find(values)
+        title = Helpers::FirstNonBlank.find(values)
         title += options[:title_suffix] if options[:title_suffix]
 
         context.content_tag(:title, title) <<
@@ -60,7 +60,7 @@ module Showcase
       private
 
       def seo_meta_tags(*args)
-        value = FirstNonBlank.find(args.pop)
+        value = Helpers::FirstNonBlank.find(args.pop)
 
         return nil unless value.present?
 

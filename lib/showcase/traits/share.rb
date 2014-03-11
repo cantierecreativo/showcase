@@ -47,7 +47,7 @@ module Showcase
               params = Hash[
                 settings[:params].map do |param, meta_key|
                   values = [:"#{social}_#{meta_key}", meta_key].map do |key|
-                    FirstNonBlank.find(meta.send(key))
+                    Helpers::FirstNonBlank.find(meta.send(key))
                   end
                   [ param, values.find(&:presence) ]
                 end

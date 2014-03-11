@@ -33,7 +33,7 @@ module Showcase
                            {}
                          end
 
-        html_options = HtmlOptions.new(config_options)
+        html_options = Helpers::HtmlOptions.new(config_options)
         html_options.merge_attrs!(options)
         html_options.add_class!(dom_class)
         html_options.merge_attrs!(id: dom_id)

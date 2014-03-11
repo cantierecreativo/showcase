@@ -27,7 +27,7 @@ module Showcase
                              options.delete(:active_class)
                            end
 
-            html_options = HtmlOptions.new(config.html_options)
+            html_options = Helpers::HtmlOptions.new(config.html_options)
             html_options.merge_attrs!(options)
             html_options.add_class!(active_class || config.active_class || 'active') if config.active
 
