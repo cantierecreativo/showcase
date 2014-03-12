@@ -1,6 +1,7 @@
 require 'showcase/helpers/config_object'
 require 'showcase/helpers/first_nonblank'
 require 'active_support/core_ext/object/to_query'
+require 'active_support/core_ext/object/blank'
 
 module Showcase
   module Traits
