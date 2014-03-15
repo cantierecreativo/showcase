@@ -1,3 +1,5 @@
+require 'showcase/helpers/html_class_attribute'
+
 module Showcase
   module Helpers
     class HtmlOptions
@@ -6,15 +8,19 @@ module Showcase
       end
 
       def add_class!(css_class)
-        @options[:class] ||= ""
-        css_classes = @options[:class].split(/\s+/)
-        css_classes << css_class
-        @options[:class] = css_classes.join(" ")
+        merge_attrs!(class: css_class)
       end
 
       def merge_attrs!(options = {})
-        options = (options || {}).symbolize_keys
-        @options.merge!(options)
+        new_options = (options || {}).symbolize_keys
+
+        if new_options[:class]
+          class_attr = HtmlClassAttribute.new(@options[:class])
+          class_attr << new_options[:class]
+          new_options[:class] = class_attr.to_html_attribute
+        end
+
+        @options.merge!(new_options)
       end
 
       def to_h

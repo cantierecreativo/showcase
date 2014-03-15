@@ -38,7 +38,7 @@ module Showcase
       private
 
       def presenter_class(obj)
-        obj.class.ancestors.each do |k|
+        (obj.class.ancestors - obj.class.included_modules).each do |k|
           klass = "#{k.name}Presenter".safe_constantize
           return klass if klass
         end
