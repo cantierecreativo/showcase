@@ -9,7 +9,7 @@ module Showcase::Traits
 
     let(:active) { false }
     before do
-      record.stub(:active).and_return(active)
+      allow(record).to receive(:active).and_return(active)
     end
 
     let(:presenter) {

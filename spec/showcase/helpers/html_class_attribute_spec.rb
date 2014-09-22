@@ -11,27 +11,27 @@ module Showcase
 
         context 'nil' do
           let(:string) { nil }
-          it { should be_nil }
+          it { is_expected.to be_nil }
         end
 
         context 'empty' do
           let(:string) { '' }
-          it { should be_nil }
+          it { is_expected.to be_nil }
         end
 
         context 'whitespaces only' do
           let(:string) { '  ' }
-          it { should be_nil }
+          it { is_expected.to be_nil }
         end
 
         context 'with trailing spaces' do
           let(:string) { '  foo  ' }
-          it { should eq 'foo' }
+          it { is_expected.to eq 'foo' }
         end
 
         context 'with multiple classes' do
           let(:string) { '  foo bar ' }
-          it { should eq 'foo bar' }
+          it { is_expected.to eq 'foo bar' }
         end
       end
 
@@ -46,35 +46,35 @@ module Showcase
           let(:string) { nil }
           let(:addition) { '  foo  ' }
 
-          it { should eq 'foo' }
+          it { is_expected.to eq 'foo' }
         end
 
         context 'with empty class attribute' do
           let(:string) { '' }
           let(:addition) { 'foo' }
 
-          it { should eq 'foo' }
+          it { is_expected.to eq 'foo' }
         end
 
         context 'with existing class attribute' do
           let(:string) { 'bar' }
           let(:addition) { 'foo' }
 
-          it { should eq 'bar foo' }
+          it { is_expected.to eq 'bar foo' }
         end
 
         context 'with the same css class' do
           let(:string) { 'foo bar' }
           let(:addition) { 'foo' }
 
-          it { should eq 'foo bar' }
+          it { is_expected.to eq 'foo bar' }
         end
 
         context 'multiple additions' do
           let(:string) { 'foo bar' }
           let(:addition) { 'foo qux' }
 
-          it { should eq 'foo bar qux' }
+          it { is_expected.to eq 'foo bar qux' }
         end
       end
     end

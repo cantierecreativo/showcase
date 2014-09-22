@@ -10,13 +10,13 @@ module Showcase
 
       describe '.present' do
         it 'instantiates a new presenter, inferring the presenter class' do
-          PersonPresenter.stub(:new).with(object, context).and_return 'Presenter'
-          context.present(object).should == 'Presenter'
+          allow(PersonPresenter).to receive(:new).with(object, context).and_return 'Presenter'
+          expect(context.present(object)).to eq('Presenter')
         end
         context 'with a superclass presenter' do
           it "instantiates a new presenter, searching presenter class in object ancestors chain" do
-            PersonPresenter.stub(:new).with(subclass_object, context).and_return 'Presenter'
-            context.present(subclass_object).should == 'Presenter'
+            allow(PersonPresenter).to receive(:new).with(subclass_object, context).and_return 'Presenter'
+            expect(context.present(subclass_object)).to eq('Presenter')
           end
         end
         context 'with no existing presenter class' do
@@ -27,12 +27,12 @@ module Showcase
           end
         end
         it 'uses the specified presenter class, when passed' do
-          ProjectPresenter.stub(:new).with(object, context).and_return 'Presenter'
-          context.present(object, ProjectPresenter).should == 'Presenter'
+          allow(ProjectPresenter).to receive(:new).with(object, context).and_return 'Presenter'
+          expect(context.present(object, ProjectPresenter)).to eq('Presenter')
         end
         it 'uses the specified context, when passed' do
           different_context = double
-          context.present(object, ProjectPresenter, different_context).view_context.should == different_context
+          expect(context.present(object, ProjectPresenter, different_context).view_context).to eq(different_context)
         end
       end
 
@@ -40,11 +40,11 @@ module Showcase
         it 'returns a presenter for each object in the collection' do
           collection = [ Person.new('Mark'), Person.new('Luke') ]
 
-          PersonPresenter.stub(:new).with(collection[0], context).and_return 'foo'
-          PersonPresenter.stub(:new).with(collection[1], context).and_return 'bar'
+          allow(PersonPresenter).to receive(:new).with(collection[0], context).and_return 'foo'
+          allow(PersonPresenter).to receive(:new).with(collection[1], context).and_return 'bar'
 
           presented_collection = context.present_collection(collection)
-          presented_collection.should == [ 'foo', 'bar' ]
+          expect(presented_collection).to eq([ 'foo', 'bar' ])
         end
       end
     end

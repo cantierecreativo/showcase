@@ -12,7 +12,7 @@ module Showcase::Traits
           end
         end
 
-        expect(klass.new.foo).to be_true
+        expect(klass.new.foo).to be_truthy
       end
 
       it 'overriding the method allows to call super' do
@@ -28,7 +28,7 @@ module Showcase::Traits
           end
         end
 
-        expect(klass.new.foo).to be_true
+        expect(klass.new.foo).to be_truthy
       end
 
       context 'if the method is already present' do
@@ -38,7 +38,7 @@ module Showcase::Traits
             def foo; false; end
           end
 
-          expect(klass.new.foo).to be_false
+          expect(klass.new.foo).to be_falsey
         end
       end
 
@@ -51,7 +51,7 @@ module Showcase::Traits
             end
           end
 
-          expect(klass.new.foo_bar).to be_true
+          expect(klass.new.foo_bar).to be_truthy
         end
 
         it 'ignores blank chunks' do
@@ -62,7 +62,7 @@ module Showcase::Traits
             end
           end
 
-          expect(klass.new.bar).to be_true
+          expect(klass.new.bar).to be_truthy
         end
       end
 

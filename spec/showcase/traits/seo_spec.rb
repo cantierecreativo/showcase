@@ -29,9 +29,9 @@ module Showcase::Traits
       let(:expected_title) { ['', 'foo'] }
 
       before do
-        Showcase::Helpers::SeoMetaBuilder.stub(:new).with(view).and_return(builder)
-        builder.stub(:title).with(expected_title, expected_options).and_return('<title>')
-        builder.stub(:description).with(expected_description, expected_options).and_return('<description>')
+        allow(Showcase::Helpers::SeoMetaBuilder).to receive(:new).with(view).and_return(builder)
+        allow(builder).to receive(:title).with(expected_title, expected_options).and_return('<title>')
+        allow(builder).to receive(:description).with(expected_description, expected_options).and_return('<description>')
       end
 
       it 'defines a seo_tags method that ouputs seo meta tags' do
