@@ -42,7 +42,7 @@ helpers do
 end
 ```
 
-You can now instantiate new presenters in your controller/views using the
+You can now instantiate new presenters in your views using the
 included helpers:
 
 ```ruby
