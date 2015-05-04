@@ -265,13 +265,13 @@ Install gems:
 
 ```
 $ bundle
-$ rake appraisal:install
+$ bundle exec appraisal
 ```
 
 Launch tests:
 
 ```
-rake appraisal
+bundle exec appraisal rake
 ```
 
 
