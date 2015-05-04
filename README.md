@@ -245,7 +245,7 @@ class ProjectPresenter < Showcase::Presenter
     c.title           name
     c.description     [ description, 'Fallback description if blank' ]
     c.image_url       cover_thumb_image
-    c.canonical_url   h.project_path(self)
+    c.canonical_url   h.project_url(self)
   end
 end
 ```
