@@ -15,6 +15,7 @@ module Showcase::Traits
           c.url = 'url'
           c.text = ['', 'text']
           c.twitter_text = ['', 'twitter text']
+          c.whatsapp_text = ['WhatsApp url']
           c.image_url = 'image'
           c.html_options = { role: 'share' }
         end
@@ -35,6 +36,8 @@ module Showcase::Traits
         gplus: "https://plus.google.com/share?url=url",
         pinterest: "http://www.pinterest.com/pin/create/button/?media=image&title=text&url=url",
         linkedin: "http://www.linkedin.com/shareArticle?title=text&url=url",
+        whatsapp: "whatsapp://send?text=WhatsApp+url",
+        flipboard: "https://share.flipboard.com/bookmarklet/popout?title=text&url=url",
       }
 
       expected_urls.each do |provider, url|
@@ -68,4 +71,3 @@ module Showcase::Traits
 
   end
 end
-
