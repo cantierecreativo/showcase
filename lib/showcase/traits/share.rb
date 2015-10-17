@@ -34,6 +34,16 @@ module Showcase
           url: "http://www.pinterest.com/pin/create/button/",
           params: { url: :url, media: :image_url, title: :text },
           label: 'Pin it!'
+        },
+        whatsapp: {
+          url: "whatsapp://send",
+          params: { text: :text },
+          label: 'Share via WhatsApp'
+        },
+        flipboard: {
+          url: "https://share.flipboard.com/bookmarklet/popout",
+          params: { title: :text, url: :url },
+          label: 'Flip.it'
         }
       }
 
@@ -65,4 +75,3 @@ module Showcase
     end
   end
 end
-
